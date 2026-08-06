@@ -2,7 +2,7 @@
 
 **Código da Disciplina**: IBM8936<br>
 
-## Sobre 
+## Sobre   
 Descreva o seu projeto em linhas gerais. 
 
 ## Instalação 
