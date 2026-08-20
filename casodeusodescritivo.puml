@@ -1,0 +1,83 @@
+@startuml produtos
+title Caso de Uso Descritivo - Comércio de Produtos
+
+left to right direction
+
+actor Cliente
+actor "Administrador da loja" as Administrador
+actor "Gateway de pagamento" as Pagamento
+actor "Serviço de estoque" as Estoque
+actor "Transportadora" as Transportadora
+
+rectangle "Sistema de Comércio de Produtos" {
+	usecase "Realizar compra de produto" as Comprar
+	usecase "Consultar catálogo" as Catalogo
+	usecase "Processar pagamento" as ProcessarPagamento
+	usecase "Atualizar estoque" as AtualizarEstoque
+	usecase "Acompanhar pedido" as AcompanharPedido
+	usecase "Gerenciar produtos" as GerenciarProdutos
+}
+
+Cliente --> Catalogo
+Cliente --> Comprar
+Cliente --> AcompanharPedido
+Comprar .> Catalogo : <<include>>
+Comprar .> ProcessarPagamento : <<include>>
+Comprar .> AtualizarEstoque : <<include>>
+Pagamento --> ProcessarPagamento
+Estoque --> AtualizarEstoque
+Transportadora --> AcompanharPedido
+Administrador --> GerenciarProdutos
+
+note right of Comprar
+	DESCRIÇÃO: Permitir que o Cliente selecione produtos,
+	informe os dados de entrega e conclua uma compra.
+
+	ATORES:
+	- Cliente (principal)
+	- Gateway de pagamento
+	- Serviço de estoque
+	- Transportadora
+
+	PRÉ-CONDIÇÕES:
+	- O catálogo deve estar disponível.
+	- Os produtos selecionados devem estar ativos.
+	- O Cliente deve informar um endereço de entrega válido.
+
+	FLUXO BÁSICO:
+	1. Cliente consulta o catálogo e seleciona um produto.
+	2. Sistema exibe descrição, preço e disponibilidade.
+	3. Cliente informa a quantidade e adiciona o produto ao carrinho.
+	4. Cliente revisa o carrinho e informa o endereço de entrega.
+	5. Sistema calcula o total da compra e o frete.
+	6. Cliente escolhe a forma de pagamento e confirma o pedido.
+	7. Sistema envia a transação ao Gateway de pagamento.
+	8. Gateway de pagamento aprova a transação.
+	9. Sistema reserva os itens no Serviço de estoque.
+	10. Sistema registra o pedido e gera um número de identificação.
+	11. Sistema envia a confirmação ao Cliente.
+	12. Sistema encaminha o pedido para a Transportadora.
+
+	FLUXOS ALTERNATIVOS:
+	2a. Produto indisponível:
+			2a1. Sistema informa a indisponibilidade ao Cliente.
+	5a. Endereço inválido:
+			5a1. Sistema solicita a correção do endereço.
+	8a. Pagamento recusado:
+			8a1. Sistema informa a recusa e solicita outra forma de pagamento.
+	9a. Estoque insuficiente:
+			9a1. Sistema cancela a reserva e informa o Cliente.
+
+	PÓS-CONDIÇÕES:
+	- Pedido confirmado ou identificado como não concluído.
+	- Pagamento aprovado ou recusado.
+	- Estoque atualizado quando a compra for aprovada.
+	- Cliente recebe o status e o número do pedido.
+
+	REGRAS DE NEGÓCIO:
+	- Não é permitido vender quantidade superior ao estoque disponível.
+	- O pedido só é confirmado após a aprovação do pagamento.
+	- O preço aplicado é o vigente no momento da confirmação.
+end note
+
+@enduml

@@ -1,0 +1,60 @@
+@startsalt
+title Prototipo de Tela - Comercio de Produtos
+
+{
+{+
+	"Comercio de Produtos" | "Cliente: visitante" | "Meu carrinho (2)"
+}
+
+{/ 
+	Buscar produtos: | "[fone bluetooth]"
+}
+
+{+
+	[Todos] | [Eletronicos] | [Casa] | [Escritorio] | [Promocoes]
+}
+
+.
+
+{^
+	{+
+		* Produto 1 - Fone Bluetooth
+		Preco: R$ 199,90
+		Estoque: Disponivel
+		[Ver detalhes] [Adicionar]
+		--
+		* Produto 2 - Teclado Mecanico
+		Preco: R$ 349,90
+		Estoque: Ultimas unidades
+		[Ver detalhes] [Adicionar]
+		--
+		* Produto 3 - Mouse Sem Fio
+		Preco: R$ 129,90
+		Estoque: Disponivel
+		[Ver detalhes] [Adicionar]
+	}
+	|
+	{+
+		"Resumo do Pedido"
+		Item 1: Fone Bluetooth x1
+		Item 2: Mouse Sem Fio x1
+		Subtotal: R$ 329,80
+		Frete: R$ 20,00
+		Total: R$ 349,80
+		--
+		Endereco:
+		"Rua Exemplo, 100 - Centro"
+		Pagamento:
+		[Cartao] (Pix) (Boleto)
+		--
+		[Finalizar Compra]
+		[Cancelar]
+	}
+}
+
+{+
+	"Status: pronto para confirmar pedido"
+}
+}
+
+@endsalt

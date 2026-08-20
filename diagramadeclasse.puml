@@ -1,0 +1,165 @@
+@startuml
+title Diagrama de Classes - Comercio de Produtos
+
+skinparam classAttributeIconSize 0
+
+class Cliente {
+	+id: int
+	+nome: string
+	+email: string
+	+telefone: string
+	+autenticado: bool
+	+adicionarAoCarrinho(produto: Produto, quantidade: int)
+	+finalizarCompra(endereco: EnderecoEntrega, pagamento: Pagamento): Pedido
+}
+
+class Catalogo {
+	+pesquisar(termo: string): List<Produto>
+	+listarDisponiveis(): List<Produto>
+}
+
+class Produto {
+	+id: int
+	+nome: string
+	+descricao: string
+	+preco: decimal
+	+ativo: bool
+}
+
+class EstoqueItem {
+	+id: int
+	+quantidadeDisponivel: int
+	+reservar(qtd: int): bool
+	+baixar(qtd: int)
+	+repor(qtd: int)
+}
+
+class Carrinho {
+	+id: int
+	+subtotal: decimal
+	+adicionarItem(produto: Produto, quantidade: int)
+	+removerItem(produto: Produto)
+	+calcularSubtotal(): decimal
+	+limpar()
+}
+
+class ItemCarrinho {
+	+quantidade: int
+	+precoUnitario: decimal
+	+calcularTotal(): decimal
+}
+
+class Pedido {
+	+numero: string
+	+dataCriacao: datetime
+	+subtotal: decimal
+	+frete: decimal
+	+total: decimal
+	+status: StatusPedido
+	+confirmar()
+	+cancelar()
+}
+
+class ItemPedido {
+	+quantidade: int
+	+precoUnitario: decimal
+	+calcularTotal(): decimal
+}
+
+class EnderecoEntrega {
+	+logradouro: string
+	+numero: string
+	+bairro: string
+	+cidade: string
+	+estado: string
+	+cep: string
+	+validar(): bool
+}
+
+abstract class Pagamento {
+	+valor: decimal
+	+status: StatusPagamento
+	+autorizar(): bool
+}
+
+class PagamentoCartao {
+	+ultimos4Digitos: string
+	+bandeira: string
+}
+
+class PagamentoPix {
+	+chave: string
+}
+
+class PagamentoBoleto {
+	+codigoBarras: string
+	+dataVencimento: date
+}
+
+class Entrega {
+	+codigoRastreio: string
+	+prazoDias: int
+	+status: StatusEntrega
+	+atualizarStatus(status: StatusEntrega)
+}
+
+class ServicoFrete {
+	+calcular(endereco: EnderecoEntrega, pesoTotal: decimal): decimal
+}
+
+class GatewayPagamento {
+	+processar(pagamento: Pagamento): bool
+}
+
+class ServicoEstoque {
+	+consultarDisponibilidade(produto: Produto, quantidade: int): bool
+	+reservarItens(pedido: Pedido): bool
+	+baixarItens(pedido: Pedido)
+}
+
+enum StatusPedido {
+	CRIADO
+	AGUARDANDO_PAGAMENTO
+	PAGO
+	EM_SEPARACAO
+	ENVIADO
+	CONCLUIDO
+	CANCELADO
+}
+
+enum StatusPagamento {
+	PENDENTE
+	APROVADO
+	RECUSADO
+}
+
+enum StatusEntrega {
+	PENDENTE
+	EM_TRANSITO
+	ENTREGUE
+	DEVOLVIDA
+}
+
+Cliente "1" -- "1" Carrinho
+Cliente "1" -- "0..*" Pedido
+Catalogo "1" o-- "0..*" Produto
+Produto "1" -- "1" EstoqueItem
+
+Carrinho "1" *-- "1..*" ItemCarrinho
+ItemCarrinho "*" --> "1" Produto
+
+Pedido "1" *-- "1..*" ItemPedido
+ItemPedido "*" --> "1" Produto
+Pedido "1" --> "1" EnderecoEntrega
+Pedido "1" --> "1" Pagamento
+Pedido "1" --> "0..1" Entrega
+
+Pagamento <|-- PagamentoCartao
+Pagamento <|-- PagamentoPix
+Pagamento <|-- PagamentoBoleto
+
+Pedido ..> ServicoFrete : calcula frete
+Pedido ..> GatewayPagamento : solicita autorizacao
+Pedido ..> ServicoEstoque : reserva/baixa itens
+
+@enduml
