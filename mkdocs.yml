@@ -25,10 +25,10 @@ nav:
 #            - Filtros: Disciplina/Roteiros/Construcao/Streaming/13_Filtros.md
 #            - Regras de Negócio Avançadas: Disciplina/Roteiros/Construcao/Streaming/14_Regras_Negocio.md
 #            - Deploy: Disciplina/Roteiros/Construcao/Streaming/15_Deploy.md
-#      - Roteiros:
-#        - Iniciação: 
-#          - DT: Disciplina/Roteiros/Iniciacao/04_DesignThinking.md
-#          - RUP/UP: Disciplina/Roteiros/Iniciacao/04_RUPgithub.md
+      - Roteiros:
+        - Iniciação: 
+          - DT: Disciplina/Roteiros/Iniciacao/04_DesignThinking.md
+          - RUP/UP: Disciplina/Roteiros/Iniciacao/04_RUPgithub.md
 #        - Elaboração:
 #          - RUP/UP: Disciplina/Roteiros/Elaboracao/06_LevantamentoRequisitos.md
 #        - Construção:
@@ -49,6 +49,7 @@ nav:
   - Iniciação: 
       - Index: Iniciacao/index.md
       - Pesquisa: Iniciacao/pesquisa.md
+      - Cenário: Iniciacao/cenario.md
       - 5w2h: Iniciacao/5w2h.md
       - Design Thinking: Iniciacao/design_thinking.md
       - Brainstorming: Iniciacao/Brainstorm.md
