@@ -6,7 +6,7 @@
 | __02__ - 10/08/26     | :material-check: [Configuração de Ambiente de Desenvolvimento](https://liveestacio-my.sharepoint.com/:w:/g/personal/00661711722_professores_ibmec_edu_br/EU2fCcJwgTFLvWNyOSUtNWABng3aZ0HtBI38y6beD8dItQ?e=Co0eY2) <br> :material-check: Configuração repositório  |
 | __03__ - 17/08/26     | :material-check: [RUP](../assets/Aulas/RUP.pdf) <br> :material-check:[UP](../assets/Aulas/Arquitetura_no_Processo_Unificado.pdf)|
 | __04__ - 24/08/26     | :material-check: Tema | 
-
+| __05__ - 27/03/26     | :material-check: Elaboração 5w2h  <br> :material-check:[Brainstorm](../assets/Aulas/O%20processo%20de brainstorm.pdf) e [Mapa Mental](../assets/Aulas/Mapa%20Mental.pdf)|
 <!--
 | __05__ - 27/03/26     | :material-check: Elaboração 5w2h  <br> :material-check:[Brainstorm](../assets/Aulas/O%20processo%20de brainstorm.pdf) e [Mapa Mental](../assets/Aulas/Mapa%20Mental.pdf)|
 | __06__ - 03/04/26     | :material-check: Feriado |
