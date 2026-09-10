@@ -49,6 +49,7 @@ nav:
   - Iniciação: 
       - Index: Iniciacao/index.md
       - Pesquisa: Iniciacao/pesquisa.md
+      - Cenário: Iniciacao/cenario.md
       - 5w2h: Iniciacao/5w2h.md
       - Design Thinking: Iniciacao/design_thinking.md
       - Brainstorming: Iniciacao/Brainstorm.md
@@ -92,10 +93,9 @@ markdown_extensions:
   - pymdownx.critic
   # Admonitions
   - pymdownx.details
-  # Icons & Emojis
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji ''
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg ''
+#  - pymdownx.emoji:
+#      emoji_index: !!python/name:material.extensions.emoji.twemoji ''
+#      emoji_generator: !!python/name:material.extensions.emoji.to_svg ''
   # Code Blocks
   - pymdownx.highlight:
       anchor_linenums: true

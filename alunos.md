@@ -8,4 +8,5 @@ Giovanna
 Ricardo Costa
 Victor 
 
+Arthur Calebe, Pedro Becker, Antonio Damasceno, Breno Huf 
 
