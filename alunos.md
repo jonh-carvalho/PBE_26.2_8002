@@ -10,9 +10,8 @@ Giovanna
 Ricardo Costa
 Victor 
 
-<<<<<<< HEAD
-Arthur Calebe, Pedro Becker, Antonio Damasceno, Breno Huf 
-=======
+
+
 Grupo III
 Artur 
 Antonio
