@@ -1,0 +1,62 @@
+@startsalt
+title Prototipo de Baixa Fidelidade - Comercio de Produtos
+
+{
+{+
+	"COMERCIO DE PRODUTOS" | "Entrar" | "Cliente: visitante" | "Carrinho (2)"
+}
+
+{/ 
+	Buscar produtos: | "[________________]" | [Buscar]
+}
+
+{+
+	[Todos] | [Eletronicos] | [Casa] | [Escritorio] | [Promocoes]
+}
+
+{^
+	{+
+		"CATALOGO DE PRODUTOS"
+		--
+		* Fone Bluetooth
+		Preco: R$ 199,90 | Estoque: Disponivel
+		[Ver detalhes] | [Adicionar ao carrinho]
+		--
+		* Teclado Mecanico
+		Preco: R$ 349,90 | Estoque: Ultimas unidades
+		[Ver detalhes] | [Adicionar ao carrinho]
+		--
+		* Mouse Sem Fio
+		Preco: R$ 129,90 | Estoque: Disponivel
+		[Ver detalhes] | [Adicionar ao carrinho]
+	}
+	|
+	{+
+		"MEU CARRINHO"
+		--
+		Fone Bluetooth | qtd: [-] 1 [+] | R$ 199,90
+		Mouse Sem Fio | qtd: [-] 1 [+] | R$ 129,90
+		[Remover item]
+		--
+		Subtotal: R$ 329,80
+		Frete: R$ 20,00
+		Total: R$ 349,80
+		[Continuar comprando] | [Ir para checkout]
+	}
+}
+
+{+
+	"CHECKOUT"
+	Endereco de entrega: | "Rua Exemplo, 100 - Centro - Sao Paulo/SP"
+	Forma de pagamento: | (Cartao) | (Pix) | (Boleto)
+	[Voltar ao carrinho] | [Confirmar pedido]
+}
+
+{+
+	"CONFIRMACAO"
+	Pedido: #000123 | Status: Pedido confirmado
+	Entrega estimada: 5 dias uteis | Codigo de rastreio: a definir
+}
+}
+
+@endsalt

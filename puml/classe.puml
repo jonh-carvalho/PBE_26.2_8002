@@ -1,0 +1,10 @@
+@startuml teste
+class Car
+top to bottom direction
+User <- Usuario 
+Usuario <- Professor
+Usuario <- Aluno
+Usuario <- Administrador
+Usuario <- Responsavel
+
+@enduml

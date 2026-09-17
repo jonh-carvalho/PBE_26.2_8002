@@ -1,0 +1,20 @@
+@startmindmap
+*
+**  clientes
+*** Cadastro
+*** Pesquisa 
+*** Visualizacao
+*** Agendamento
+**** Agenda 
+**** Lembretes
+***** Lista de espera
+***** Historico de atendimentos
+-- profissionais
+--- Cadastro
+--- Configuracao de disponibilidade
+--- Visualizacao  agenda
+--- Confirmacao  de atendimentos
+--- Bloqueio de horarios
+---- Visualizacao de clientes 
+---- Criacao de sessoes recorrentes
+@endmindmap

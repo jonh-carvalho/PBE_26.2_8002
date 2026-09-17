@@ -18,16 +18,11 @@ rectangle "Sistema de Comércio de Produtos" {
 	usecase "Gerenciar produtos" as GerenciarProdutos
 }
 
-Cliente --> Catalogo
-Cliente --> Comprar
-Cliente --> AcompanharPedido
+
 Comprar .> Catalogo : <<include>>
 Comprar .> ProcessarPagamento : <<include>>
 Comprar .> AtualizarEstoque : <<include>>
-Pagamento --> ProcessarPagamento
-Estoque --> AtualizarEstoque
-Transportadora --> AcompanharPedido
-Administrador --> GerenciarProdutos
+
 
 note right of Comprar
 	DESCRIÇÃO: Permitir que o Cliente selecione produtos,
