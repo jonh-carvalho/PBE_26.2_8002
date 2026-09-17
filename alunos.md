@@ -17,7 +17,3 @@ Artur
 Antonio
 Pedro
 Breno
-
-
->>>>>>> 6ea06f1bc546c98afc4c7375cad3e1d250e389df
-
