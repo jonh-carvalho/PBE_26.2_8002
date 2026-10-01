@@ -31,6 +31,7 @@ nav:
           - RUP/UP: Disciplina/Roteiros/Iniciacao/04_RUPgithub.md
         - Elaboração:
           - RUP/UP: Disciplina/Roteiros/Elaboracao/06_LevantamentoRequisitos.md
+          - Sequência: Disciplina/Roteiros/Elaboracao/09_Diagrama_Sequencia.md
         - Construção:
           - POO:
             - POO: Disciplina/Roteiros/Construcao/Poo/poo.ipynb
@@ -131,9 +132,9 @@ plugins:
   #- minify:
   #    minify_html: true
   - search
-  #- mkdocs-jupyter:
-  #    execute: false
-  #    allow_errors: true
+  - mkdocs-jupyter:
+      execute: false
+      allow_errors: true
 
 theme:
   favicon: assets/ibmec_icon.png
