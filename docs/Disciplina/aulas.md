@@ -10,9 +10,9 @@
 | __06__ - 10/09/26     | :material-check: Teste de Progresso |
 | __07__ - 17/09/26     | :material-check: [Engenharia de Requisitos](..//assets/Aulas/Engenharia%20de%20Requisitos_Cap05.pdf)  <br> - [Análise OO e UML](../assets/Aulas/AnaliseOO&UML.pdf) <br> - Diagrama de Casos de Uso <br> - [Classes](../assets/Aulas/Classes_Pacotes.pdf) |
 | __08__ - 24/09/26     | :material-check: AP1   |
-| __09__ - 01/10/26     | :material-check: Roteiro Django Rest - Intro Python BD |
-| __10__ - 08/10/26     | :material-check:   |
-| __11__ - 15/10/26     | :material-check:   |
+| __09__ - 01/10/26     | :material-check: Roteiro Django Rest - Intro Python OO |
+| __10__ - 08/10/26     | :material-check: Roteiro Django - Streaming - Python  BD |
+| __11__ - 15/10/26     | :material-check:  Feriado |
 | __12__ - 22/10/26     | :material-check: Roteiros Streaming - Content 1xN|
 | __13__ - 29/10/26     | :material-check: Roteiros Streaming - Relacionamentos - PlayList NxN -  |
 | __14__ - 05/11/26     | :material-check: Roteiros  |
