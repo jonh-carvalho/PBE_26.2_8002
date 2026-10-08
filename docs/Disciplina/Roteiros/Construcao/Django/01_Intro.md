@@ -8,7 +8,7 @@ Roteiro para Desenvolvimento de Aplicação Web Django com SQLite no VS Code
 - Python instalado (versão 3.8 ou superior)
 - Extensão Python para VS Code (recomendado)
 
-## Passo 1: Configurar Ambiente Virtual
+## 1: Configurar Ambiente Virtual
 
 1. Abra o terminal no VS Code (`Ctrl+` ou Terminal > Novo Terminal)
 2. Navegue até a pasta onde deseja criar o projeto
@@ -40,7 +40,7 @@ ou
 
 5. Verifique que o ambiente está ativo (deve aparecer `(venv)` no início da linha do terminal)
 
-## Passo 2: Instalar Django e Dependências
+## 2: Instalar Django e Dependências
 
 1. Com o ambiente virtual ativo, instale o Django:
 
@@ -48,7 +48,7 @@ ou
    pip install django
    ```
 
-## Passo 3: Criar Projeto Django
+## 3: Criar Projeto Django
 
 1. Crie o projeto Django:
 
@@ -69,7 +69,7 @@ ou
    manage.py
    ```
 
-## Passo 4: Configurar o Banco de Dados SQLite
+## 4: Configurar o Banco de Dados SQLite
 
 1. O Django já vem configurado para usar SQLite por padrão (verifique em `project/settings.py`):
 
@@ -88,7 +88,7 @@ ou
    python manage.py migrate
    ```
 
-## Passo 5: Criar uma Aplicação Django
+## 5: Criar uma Aplicação Django
 
 1. Crie uma nova aplicação:
 
@@ -105,42 +105,7 @@ ou
    ]
    ```
 
-## Passo 6: Configurar URLs e Views Básicas
-
-1. Crie um arquivo `urls.py` na pasta `app`:
-
-   ```python
-   from django.urls import path
-   from . import views
-
-   urlpatterns = [
-       path('', views.home, name='home'),
-   ]
-   ```
-
-2. Inclua as URLs da aplicação no projeto principal (`project/urls.py`):
-
-   ```python
-   from django.contrib import admin
-   from django.urls import path, include
-
-   urlpatterns = [
-       path('admin/', admin.site.urls),
-       path('', include('app.urls')),
-   ]
-   ```
-
-3. Crie uma view básica em `app/views.py`:
-
-   ```python
-   from django.shortcuts import render
-   from django.http import HttpResponse
-
-   def home(request):
-       return HttpResponse("Bem-vindo ao meu site!")
-   ```
-
-## Passo 7: Criar Modelos e Migrações
+## 6: Criar Modelos e Migrações
 
 1. Defina um modelo em `app/models.py`:
 
@@ -164,7 +129,7 @@ ou
    python manage.py migrate
    ```
 
-## Passo 8: Configurar o Painel de Administração
+## 7: Configurar o Painel de Administração
 
 1. Crie um superusuário:
 
@@ -182,7 +147,7 @@ ou
    ```
 
 
-## Passo 9: Executar o Servidor de Desenvolvimento
+## 8: Executar o Servidor de Desenvolvimento
 
 1. Inicie o servidor:
 
@@ -194,3 +159,112 @@ ou
 
    - http://localhost:8000/ (página inicial)
    - http://localhost:8000/admin/ (painel admin)
+
+---
+
+# Introdução ao Django REST
+
+Uma extensão do aplicativo Django inicial para incluir uma API RESTful usando Django REST Framework, mantendo a funcionalidade existente e adicionando endpoints API.
+
+## 1. Instalação e Configuração Inicial
+
+Primeiro, vamos instalar e configurar o DRF:
+
+```bash
+pip install djangorestframework
+```
+
+Adicione ao `INSTALLED_APPS` em `project/settings.py`:
+
+```python
+INSTALLED_APPS = [
+    ...
+    'rest_framework',
+    'app',
+]
+```
+
+## 2. Criação dos Serializers
+
+Crie um arquivo `serializers.py` na aplicação `app`:
+
+```python
+# app/serializers.py
+from rest_framework import serializers
+from app.models import Produto
+
+class ProdutoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Produto
+        fields = ['id', 'nome', 'preco', 'descricao', 'disponivel']
+        read_only_fields = ['id']
+```
+
+## 3. Criação das Viewsets e API Views
+
+Atualize ou crie um arquivo `api.py` na aplicação:
+
+```python
+# app/api.py
+from rest_framework import viewsets, generics
+from rest_framework.response import Response
+from rest_framework.decorators import action
+from app.models import Produto
+from app.serializers import ProdutoSerializer
+
+class ProdutoViewSet(viewsets.ModelViewSet):
+    queryset = Produto.objects.all()
+    serializer_class = ProdutoSerializer
+```
+
+## 4. Configuração das URLs da API
+
+Crie um arquivo `api_urls.py` na aplicação:
+
+```python
+# app/api_urls.py
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from app.api import ProdutoViewSet
+
+router = DefaultRouter()
+router.register(r'produtos', ProdutoViewSet, basename='produto')
+
+urlpatterns = [
+    path('', include(router.urls)),
+]
+```
+
+Atualize o `urls.py` principal do projeto:
+
+```python
+# project/urls.py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('app.urls')),  # URLs tradicionais
+    path('api/', include('app.api_urls')),  # URLs da API
+]
+```
+
+## 5. Testando a API
+
+Agora você pode testar os endpoints da API:
+
+1. **Listar todos os produtos**: `GET /api/produtos/`
+2. **Criar novo produto**: `POST /api/produtos/`
+3. **Detalhes de um produto**: `GET /api/produtos/1/`
+4. **Atualizar produto**: `PUT /api/produtos/1/`
+5. **Produtos disponíveis**: `GET /api/produtos/disponiveis/`
+6. **Produtos baratos**: `GET /api/produtos/baratos/`
+7. **Documentação Swagger**: `GET /swagger/`
+8. **Documentação ReDoc**: `GET /redoc/`
+
+Esta extensão transforma seu aplicativo Django em uma API RESTful poderosa enquanto mantém a funcionalidade web tradicional. Você agora pode:
+
+- Consumir a API com frontends modernos (React, Vue, Angular)
+- Oferecer serviços para aplicativos móveis
+- Integrar com outros sistemas via API
+- Manter uma arquitetura escalável e bem organizada
