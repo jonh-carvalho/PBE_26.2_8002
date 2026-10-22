@@ -8,13 +8,13 @@ nav:
   - Home: index.md
   - Disciplina:
       - Aulas: Disciplina/aulas.md
-#      - Streaming: 
-#            - Projeto Streaming: Disciplina/Roteiros/Construcao/Streaming/00_Projeto_Streaming.md
-#            - Regras de Negócio: Disciplina/Roteiros/Construcao/Streaming/01_Regras_Negocio.md
-#            - Modelagem: Disciplina/Roteiros/Construcao/Streaming/02_Modelagem.md
-#            - Rest API: Disciplina/Roteiros/Construcao/Streaming/03_Rest.md
-#            - Consumo API: Disciplina/Roteiros/Construcao/Streaming/04_Consume.md
-#            - Diag. de Sequência: Disciplina/Roteiros/Construcao/Streaming/04_Diagrama_Sequencia.md
+      - Streaming: 
+            - Projeto Streaming: Disciplina/Roteiros/Construcao/Streaming/00_Projeto_Streaming.md
+            - Regras de Negócio: Disciplina/Roteiros/Construcao/Streaming/01_Regras_Negocio.md
+            - Modelagem: Disciplina/Roteiros/Construcao/Streaming/02_Modelagem.md
+            - Rest API: Disciplina/Roteiros/Construcao/Streaming/03_Rest.md
+            - Consumo API: Disciplina/Roteiros/Construcao/Streaming/04_Consume.md
+            - Diag. de Sequência: Disciplina/Roteiros/Construcao/Streaming/04_Diagrama_Sequencia.md
 #            - Relacionamentos: Disciplina/Roteiros/Construcao/Streaming/05_Playlist_NxN.md
 #            - Shell: Disciplina/Roteiros/Construcao/Streaming/06_Shell.md
 #            - Swagger: Disciplina/Roteiros/Construcao/Streaming/07_Swagger.md

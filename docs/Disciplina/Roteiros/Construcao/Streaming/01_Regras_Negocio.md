@@ -1,297 +1,70 @@
-# 01 - **Regras de Negócio**
+# 01 — Regras de negócio
 
-## 1. **Regras de Negócio para Usuários**
+## Objetivo
 
-- **Cadastro e Login:**
-    
-    - Apenas usuários registrados podem acessar funcionalidades como criação de playlists, upload de conteúdo e gerenciamento de conteúdo.
-    - Um sistema de verificação por e-mail deve ser implementado para garantir que apenas e-mails válidos sejam utilizados para cadastro.
+Este documento reúne as regras de negócio propostas para o aplicativo de streaming. Elas orientam a modelagem, a implementação da API e os testes. Os limites numéricos, os critérios de moderação e as políticas comerciais que ainda não foram definidos devem ser acordados antes da implementação; não devem ser tratados como valores implícitos.
 
-- **Perfis de Usuário e Permissões:**
+## 1. Usuários, contas e permissões
 
-    - Usuários básicos podem criar e gerenciar suas playlists pessoais, mas não podem fazer upload de conteúdo.
-    - Criadores de conteúdo e administradores possuem permissões adicionais para fazer upload de conteúdo e gerenciar suas criações.
-    - Os administradores possuem acesso completo ao sistema, incluindo edição e exclusão de conteúdos e playlists de qualquer usuário.
+1. O cadastro deve exigir dados de conta válidos e verificação do endereço de e-mail antes de habilitar as funcionalidades que dependem de uma conta confirmada.
+2. A plataforma deve distinguir, no mínimo, usuários básicos, criadores de conteúdo e administradores:
+   - Usuários básicos podem criar e gerenciar as próprias playlists, mas não podem publicar conteúdo.
+   - Criadores podem publicar conteúdo e gerenciar as próprias publicações.
+   - Administradores podem administrar usuários, conteúdos e playlists conforme as permissões administrativas definidas para a plataforma.
+3. Cada usuário pode consultar e gerenciar os próprios dados e recursos. Um usuário não pode alterar ou excluir a playlist de outra pessoa; a exceção é uma ação administrativa autorizada.
+4. A identidade do proprietário deve ser determinada pelo sistema a partir da conta autenticada, e não confiada a um identificador enviado pelo cliente.
 
-- **Gerenciamento de Contas:**
+## 2. Conteúdos e publicação
 
-    - Cada usuário deve poder visualizar e gerenciar suas playlists e conteúdos.
-    - Somente o proprietário de uma playlist pode editá-la ou excluí-la, com exceção dos administradores.
-    - Apenas usuários registrados podem acessar funcionalidades como criação de playlists, upload de conteúdo e gerenciamento de conteúdo.
-    - Um sistema de verificação por e-mail deve ser implementado para garantir que apenas e-mails válidos sejam utilizados para cadastro.
+1. Somente criadores autorizados podem publicar conteúdos, nos formatos aceitos pela plataforma, como áudio e vídeo.
+2. Cada conteúdo deve ter título, descrição e miniatura. O título deve ser único entre os conteúdos do mesmo criador.
+3. O criador pode definir o conteúdo como público ou privado. Conteúdos públicos podem ser descobertos e reproduzidos conforme as permissões da plataforma. Conteúdos privados só podem ser acessados pelo criador e por usuários explicitamente autorizados.
+4. Antes da publicação, o conteúdo deve passar pelo processo de moderação definido pela plataforma, para verificar conformidade com as regras de uso e direitos autorais. O método e os critérios de aprovação precisam ser especificados.
+5. O conteúdo deve possuir um estado de publicação, como rascunho, publicado ou bloqueado, para distinguir itens ainda não disponíveis, disponíveis ao público e impedidos de circular.
 
-- **Perfis de Usuário e Permissões:**
+## 3. Playlists
 
-  - Usuários básicos podem criar e gerenciar suas playlists pessoais, mas não podem fazer upload de conteúdo.
-  - Criadores de conteúdo e administradores possuem permissões adicionais para fazer upload de conteúdo e gerenciar suas criações.
-  - Os administradores possuem acesso completo ao sistema, incluindo edição e exclusão de conteúdos e playlists de qualquer usuário.
+1. Usuários autenticados podem criar e gerenciar playlists próprias.
+2. O título de uma playlist deve ser único no conjunto de playlists do mesmo proprietário.
+3. Um mesmo conteúdo não pode aparecer mais de uma vez na mesma playlist.
+4. O proprietário pode definir uma playlist como pública ou privada. Uma playlist pública só pode incluir conteúdos públicos; uma playlist privada pode incluir conteúdos públicos ou privados que o proprietário tenha permissão para acessar.
+5. Conteúdos privados incluídos em playlists privadas não se tornam acessíveis a outros usuários por meio da playlist.
+6. O proprietário pode alterar a ordem dos conteúdos da playlist.
+7. Limites para a quantidade de playlists por usuário, quando aplicáveis, devem ser configurados e comunicados pela plataforma.
 
-- **Gerenciamento de Contas:**
+## 4. Consumo e interação com conteúdos
 
-  - Cada usuário deve poder visualizar e gerenciar suas playlists e conteúdos.
-  - Somente o proprietário de uma playlist pode editá-la ou excluí-la, com exceção dos administradores.
+1. Conteúdos públicos podem ser reproduzidos por usuários que atendam às permissões de acesso da plataforma. Conteúdos privados só podem ser reproduzidos por usuários autorizados.
+2. Se houver download, o acesso poderá ser restrito a assinantes premium, com limites por período. As condições e os limites devem ser definidos antes da implementação.
+3. Usuários podem favoritar conteúdos para encontrá-los posteriormente. Caso exista um limite para contas básicas, o valor deve ser definido e comunicado.
+4. Se comentários e avaliações forem habilitados, eles devem estar associados ao usuário e ao conteúdo correspondente e seguir as regras de convivência da plataforma.
+5. Usuários podem reportar conteúdos que considerem impróprios ou que violem as regras. A plataforma deve definir como esses relatos serão analisados e quais ações podem resultar da análise.
 
-## 2. **Regras de Negócio para Playlists**
+## 5. Notificações
 
-- **Criação e Gerenciamento de Playlists:**
+1. Usuários que acompanham um criador podem receber uma notificação quando ele publicar um novo conteúdo.
+2. A plataforma pode notificar usuários sobre alterações relevantes em playlists ou conteúdos que acompanham, incluindo exclusão ou mudança de visibilidade.
+3. Os eventos que geram notificações, os canais utilizados e as preferências de recebimento devem ser definidos para cada implementação.
 
-    - Um usuário pode criar um número limitado de playlists (limite configurável) para evitar excesso de dados no sistema.
-    - Playlists devem ter um título único dentro do contexto do usuário para facilitar a busca e organização.
-    - Conteúdos podem ser adicionados a uma playlist apenas uma vez; duplicatas não são permitidas.
-    - É permitido que o usuário compartilhe suas playlists publicamente se o recurso for ativado (opção de playlist pública).
+## 6. Assinaturas e recursos premium
 
-- **Conteúdos em Playlists:**
+1. A plataforma pode oferecer planos premium com benefícios como acesso a conteúdos exclusivos, acesso antecipado, limites maiores para playlists e favoritos ou permissão de download.
+2. Se houver cobrança recorrente, a assinatura deve registrar seu período e estado, permitir cancelamento e aplicar as regras de renovação acordadas.
+3. O acesso a recursos premium deve ser concedido apenas enquanto a assinatura estiver válida, de acordo com as condições do plano.
+4. Planos, benefícios, limites, cobrança, renovação e efeitos do cancelamento devem ser especificados antes de integrar um serviço de pagamento.
 
-    - Somente conteúdos públicos podem ser adicionados a playlists públicas.
-    - Conteúdos privados podem ser adicionados a playlists privadas, mas não podem ser compartilhados ou visualizados por outros usuários.
-    - Usuários podem reordenar conteúdos dentro de suas playlists.
-  - Um usuário pode criar um número limitado de playlists (limite configurável) para evitar excesso de dados no sistema.
-  - Playlists devem ter um título único dentro do contexto do usuário para facilitar a busca e organização.
-  - Conteúdos podem ser adicionados a uma playlist apenas uma vez; duplicatas não são permitidas.
-  - É permitido que o usuário compartilhe suas playlists publicamente se o recurso for ativado (opção de playlist pública).
+## 7. Segurança, privacidade e conformidade
 
-- **Conteúdos em Playlists:**
+1. Dados pessoais devem ser tratados conforme a legislação aplicável e a política de privacidade da plataforma.
+2. Dados pessoais devem ser acessíveis somente ao próprio usuário e a administradores autorizados, respeitando o princípio do menor privilégio.
+3. A autenticação deve proteger as contas, utilizar senhas armazenadas de forma segura e aplicar os mecanismos de proteção definidos para os perfis e operações.
+4. A plataforma deve limitar requisições abusivas e definir medidas contra uso automatizado ou excessivo da API.
+5. Dados e conteúdos privados devem permanecer protegidos em todas as operações, incluindo listagem, busca, playlists e reprodução.
 
-  - Somente conteúdos públicos podem ser adicionados a playlists públicas.
-  - Conteúdos privados podem ser adicionados a playlists privadas, mas não podem ser compartilhados ou visualizados por outros usuários.
-  - Usuários podem reordenar conteúdos dentro de suas playlists.
+## Orientações para implementação e validação
 
-## 3. **Regras de Negócio para Conteúdos**
-
-- **Upload e Gerenciamento de Conteúdos:**
-
-
-    - Apenas usuários com permissão de criador de conteúdo podem fazer uploads. O conteúdo deve estar nos formatos de arquivo suportados (ex.: `.mp4`, `.mp3`).
-    - Cada conteúdo deve ter uma miniatura (thumbnail) e uma descrição para melhorar a experiência do usuário e facilitar a navegação.
-    - O título de cada conteúdo deve ser único por criador para evitar confusão.
-
-- **Políticas de Publicação:**
-
-    - Todo conteúdo passa por uma verificação automatizada para garantir que não contenha materiais impróprios ou violações de direitos autorais.
-    - Criadores podem definir se seu conteúdo será **público** ou **privado**.
-    - Conteúdos públicos podem ser visualizados e adicionados a playlists de qualquer usuário, enquanto conteúdos privados são acessíveis apenas ao criador e a playlists privadas.
-  - Apenas usuários com permissão de criador de conteúdo podem fazer uploads. O conteúdo deve estar nos formatos de arquivo suportados (ex.: `.mp4`, `.mp3`).
-  - Cada conteúdo deve ter uma miniatura (thumbnail) e uma descrição para melhorar a experiência do usuário e facilitar a navegação.
-  - O título de cada conteúdo deve ser único por criador para evitar confusão.
-
-- **Políticas de Publicação:**
-
-  - Todo conteúdo passa por uma verificação automatizada para garantir que não contenha materiais impróprios ou violações de direitos autorais.
-  - Criadores podem definir se seu conteúdo será **público** ou **privado**.
-  - Conteúdos públicos podem ser visualizados e adicionados a playlists de qualquer usuário, enquanto conteúdos privados são acessíveis apenas ao criador e a playlists privadas.
-
-## 4. **Regras de Negócio para Consumo de Conteúdos**
-
-- **Streaming e Download:**
-  
-    - Conteúdos públicos podem ser reproduzidos via streaming por qualquer usuário, desde que respeite as permissões de visualização.
-    - Downloads de conteúdos podem ser restritos a usuários premium, com limitação de número de downloads mensais.
-    - Usuários podem marcar conteúdos como favoritos para acessá-los rapidamente, mas essa funcionalidade está limitada a um certo número de favoritos por perfil básico.
-  - Conteúdos públicos podem ser reproduzidos via streaming por qualquer usuário, desde que respeite as permissões de visualização.
-  - Downloads de conteúdos podem ser restritos a usuários premium, com limitação de número de downloads mensais.
-  - Usuários podem marcar conteúdos como favoritos para acessá-los rapidamente, mas essa funcionalidade está limitada a um certo número de favoritos por perfil básico.
-
-## 5. **Notificações e Feedback**
-
-- **Sistema de Notificações:**
-
-    - Os usuários devem ser notificados quando novos conteúdos de criadores que eles seguem são publicados.
-    - Notificações também devem alertar sobre o status de uma playlist ou conteúdo, como exclusões, alterações de privacidade, entre outros.
-
-- **Feedback e Reportes:**
-
-    - Usuários devem poder reportar conteúdos impróprios ou que violam as regras da plataforma.
-    - Comentários e avaliações de conteúdos são permitidos para incentivar o engajamento e fornecer feedback aos criadores.
-  - Os usuários devem ser notificados quando novos conteúdos de criadores que eles seguem são publicados.
-  - Notificações também devem alertar sobre o status de uma playlist ou conteúdo, como exclusões, alterações de privacidade, entre outros.
-
-- **Feedback e Reportes:**
-
-  - Usuários devem poder reportar conteúdos impróprios ou que violam as regras da plataforma.
-  - Comentários e avaliações de conteúdos são permitidos para incentivar o engajamento e fornecer feedback aos criadores.
-
-## 6. **Regras de Negócio para Assinaturas e Recursos Premium**
-
-- **Modelo de Assinatura:**
-
-    - Usuários podem fazer upgrade para uma conta premium, que oferece vantagens como downloads ilimitados, acesso antecipado a conteúdos, e acesso exclusivo a playlists e conteúdos especiais.
-    - O sistema deve garantir a renovação automática das assinaturas premium e permitir cancelamento a qualquer momento.
-
-- **Benefícios Premium:**
-
-    - Assinantes premium podem ter um número maior de playlists e favoritos, bem como maior capacidade de armazenamento de playlists.
-    - Conteúdos premium (acessíveis apenas por assinantes) podem ser disponibilizados para atrair novos criadores e assinantes.
-    - Usuários podem fazer upgrade para uma conta premium, que oferece vantagens como downloads ilimitados, acesso antecipado a conteúdos, e acesso exclusivo a playlists e conteúdos especiais.
-    - O sistema deve garantir a renovação automática das assinaturas premium e permitir cancelamento a qualquer momento.
-
-- **Benefícios Premium:**
-
-  - Assinantes premium podem ter um número maior de playlists e favoritos, bem como maior capacidade de armazenamento de playlists.
-  - Conteúdos premium (acessíveis apenas por assinantes) podem ser disponibilizados para atrair novos criadores e assinantes.
-
-### 7. **Regras de Segurança e Conformidade**
-
-- **Políticas de Privacidade e Compliance:**
-
-    - Todos os dados de usuários devem ser armazenados em conformidade com a GDPR ou outra legislação local aplicável.
-    - Somente administradores e o próprio usuário podem acessar dados pessoais sensíveis.
-
-- **Limites de Acesso e Proteção de Dados:**
-
-    - Taxas de requisição (rate-limiting) devem ser aplicadas para evitar uso excessivo ou ataques à API.
-    - Um sistema de autenticação robusto deve ser implementado, incluindo verificação de senha forte e autenticação multifator (2FA) para usuários premium ou criadores de conteúdo.
-  - Todos os dados de usuários devem ser armazenados em conformidade com a GDPR ou outra legislação local aplicável.
-  - Somente administradores e o próprio usuário podem acessar dados pessoais sensíveis.
-
-- **Limites de Acesso e Proteção de Dados:**
-
-  - Taxas de requisição (rate-limiting) devem ser aplicadas para evitar uso excessivo ou ataques à API.
-  - Um sistema de autenticação robusto deve ser implementado, incluindo verificação de senha forte e autenticação multifator (2FA) para usuários premium ou criadores de conteúdo.
-
-**Essas regras de negócio ajudam a definir o comportamento do app, permitindo que ele seja usado de maneira organizada, segura e eficiente tanto por usuários finais quanto por administradores e criadores.**
-
-Para um aplicativo de streaming que inclui funcionalidades de criação e gerenciamento de playlists e upload de conteúdo por criadores, as regras de negócio são essenciais para garantir uma experiência consistente e segura para os usuários. Abaixo, seguem algumas regras de negócio que podem ser aplicadas a esse tipo de aplicação:
-
-### 1. **Regras de Negócio para Usuários (Detalhado)**
-
-- **Cadastro e Login:**
-
-    - Apenas usuários registrados podem acessar funcionalidades como criação de playlists, upload de conteúdo e gerenciamento de conteúdo.
-    - Um sistema de verificação por e-mail deve ser implementado para garantir que apenas e-mails válidos sejam utilizados para cadastro.
-
-- **Perfis de Usuário e Permissões:**
-
-    - Usuários básicos podem criar e gerenciar suas playlists pessoais, mas não podem fazer upload de conteúdo.
-    - Criadores de conteúdo e administradores possuem permissões adicionais para fazer upload de conteúdo e gerenciar suas criações.
-    - Os administradores possuem acesso completo ao sistema, incluindo edição e exclusão de conteúdos e playlists de qualquer usuário.
-
-- **Gerenciamento de Contas:**
-  
-    - Cada usuário deve poder visualizar e gerenciar suas playlists e conteúdos.
-    - Somente o proprietário de uma playlist pode editá-la ou excluí-la, com exceção dos administradores.
-  - Apenas usuários registrados podem acessar funcionalidades como criação de playlists, upload de conteúdo e gerenciamento de conteúdo.
-  - Um sistema de verificação por e-mail deve ser implementado para garantir que apenas e-mails válidos sejam utilizados para cadastro.
-
-- **Perfis de Usuário e Permissões:**
-
-  - Usuários básicos podem criar e gerenciar suas playlists pessoais, mas não podem fazer upload de conteúdo.
-  - Criadores de conteúdo e administradores possuem permissões adicionais para fazer upload de conteúdo e gerenciar suas criações.
-  - Os administradores possuem acesso completo ao sistema, incluindo edição e exclusão de conteúdos e playlists de qualquer usuário.
-
-- **Gerenciamento de Contas:**
-  - Cada usuário deve poder visualizar e gerenciar suas playlists e conteúdos.
-  - Somente o proprietário de uma playlist pode editá-la ou excluí-la, com exceção dos administradores.
-
-### 2. **Regras de Negócio para Playlists (Detalhado)**
-
-- **Criação e Gerenciamento de Playlists:**
-
-    - Um usuário pode criar um número limitado de playlists (limite configurável) para evitar excesso de dados no sistema.
-    - Playlists devem ter um título único dentro do contexto do usuário para facilitar a busca e organização.
-    - Conteúdos podem ser adicionados a uma playlist apenas uma vez; duplicatas não são permitidas.
-    - É permitido que o usuário compartilhe suas playlists publicamente se o recurso for ativado (opção de playlist pública).
-
-- **Conteúdos em Playlists:**
-  
-    - Somente conteúdos públicos podem ser adicionados a playlists públicas.
-    - Conteúdos privados podem ser adicionados a playlists privadas, mas não podem ser compartilhados ou visualizados por outros usuários.
-    - Usuários podem reordenar conteúdos dentro de suas playlists.
-    - Um usuário pode criar um número limitado de playlists (limite configurável) para evitar excesso de dados no sistema.
-    - Playlists devem ter um título único dentro do contexto do usuário para facilitar a busca e organização.
-    - Conteúdos podem ser adicionados a uma playlist apenas uma vez; duplicatas não são permitidas.
-    - É permitido que o usuário compartilhe suas playlists publicamente se o recurso for ativado (opção de playlist pública).
-
-- **Conteúdos em Playlists:**
-  - Somente conteúdos públicos podem ser adicionados a playlists públicas.
-  - Conteúdos privados podem ser adicionados a playlists privadas, mas não podem ser compartilhados ou visualizados por outros usuários.
-  - Usuários podem reordenar conteúdos dentro de suas playlists.
-
-
-### 3. **Regras de Negócio para Conteúdos (Detalhado)**
-
-- **Upload e Gerenciamento de Conteúdos:**
-
-    - Apenas usuários com permissão de criador de conteúdo podem fazer uploads. O conteúdo deve estar nos formatos de arquivo suportados (ex.: `.mp4`, `.mp3`).
-    - Cada conteúdo deve ter uma miniatura (thumbnail) e uma descrição para melhorar a experiência do usuário e facilitar a navegação.
-    - O título de cada conteúdo deve ser único por criador para evitar confusão.
-
-- **Políticas de Publicação:**
-    
-    - Todo conteúdo passa por uma verificação automatizada para garantir que não contenha materiais impróprios ou violações de direitos autorais.
-    - Criadores podem definir se seu conteúdo será **público** ou **privado**.
-    - Conteúdos públicos podem ser visualizados e adicionados a playlists de qualquer usuário, enquanto conteúdos privados são acessíveis apenas ao criador e a playlists privadas.
-  - Apenas usuários com permissão de criador de conteúdo podem fazer uploads. O conteúdo deve estar nos formatos de arquivo suportados (ex.: `.mp4`, `.mp3`).
-  - Cada conteúdo deve ter uma miniatura (thumbnail) e uma descrição para melhorar a experiência do usuário e facilitar a navegação.
-  - O título de cada conteúdo deve ser único por criador para evitar confusão.
-
-- **Políticas de Publicação:**
-  - Todo conteúdo passa por uma verificação automatizada para garantir que não contenha materiais impróprios ou violações de direitos autorais.
-  - Criadores podem definir se seu conteúdo será **público** ou **privado**.
-  - Conteúdos públicos podem ser visualizados e adicionados a playlists de qualquer usuário, enquanto conteúdos privados são acessíveis apenas ao criador e a playlists privadas.
-
-### 4. **Regras de Negócio para Consumo de Conteúdos (Detalhado)**
-
-- **Streaming e Download:**
-  
-    - Conteúdos públicos podem ser reproduzidos via streaming por qualquer usuário, desde que respeite as permissões de visualização.
-    - Downloads de conteúdos podem ser restritos a usuários premium, com limitação de número de downloads mensais.
-    - Usuários podem marcar conteúdos como favoritos para acessá-los rapidamente, mas essa funcionalidade está limitada a um certo número de favoritos por perfil básico.
-  - Conteúdos públicos podem ser reproduzidos via streaming por qualquer usuário, desde que respeite as permissões de visualização.
-  - Downloads de conteúdos podem ser restritos a usuários premium, com limitação de número de downloads mensais.
-  - Usuários podem marcar conteúdos como favoritos para acessá-los rapidamente, mas essa funcionalidade está limitada a um certo número de favoritos por perfil básico.
-
-### 5. **Notificações e Feedback  (Detalhado)**
-
-- **Sistema de Notificações:**
-
-    - Os usuários devem ser notificados quando novos conteúdos de criadores que eles seguem são publicados.
-    - Notificações também devem alertar sobre o status de uma playlist ou conteúdo, como exclusões, alterações de privacidade, entre outros.
-
-- **Feedback e Reportes:**
-  
-    - Usuários devem poder reportar conteúdos impróprios ou que violam as regras da plataforma.
-    - Comentários e avaliações de conteúdos são permitidos para incentivar o engajamento e fornecer feedback aos criadores.
-  - Os usuários devem ser notificados quando novos conteúdos de criadores que eles seguem são publicados.
-  - Notificações também devem alertar sobre o status de uma playlist ou conteúdo, como exclusões, alterações de privacidade, entre outros.
-
-- **Feedback e Reportes:**
-  - Usuários devem poder reportar conteúdos impróprios ou que violam as regras da plataforma.
-  - Comentários e avaliações de conteúdos são permitidos para incentivar o engajamento e fornecer feedback aos criadores.
-
-### 6. **Regras de Negócio para Assinaturas e Recursos Premium  (Detalhado)**
-
-- **Modelo de Assinatura:**
-
-    - Usuários podem fazer upgrade para uma conta premium, que oferece vantagens como downloads ilimitados, acesso antecipado a conteúdos, e acesso exclusivo a playlists e conteúdos especiais.
-    - O sistema deve garantir a renovação automática das assinaturas premium e permitir cancelamento a qualquer momento.
-
-- **Benefícios Premium:**
-  
-    - Assinantes premium podem ter um número maior de playlists e favoritos, bem como maior capacidade de armazenamento de playlists.
-    - Conteúdos premium (acessíveis apenas por assinantes) podem ser disponibilizados para atrair novos criadores e assinantes.
-  - Usuários podem fazer upgrade para uma conta premium, que oferece vantagens como downloads ilimitados, acesso antecipado a conteúdos, e acesso exclusivo a playlists e conteúdos especiais.
-  - O sistema deve garantir a renovação automática das assinaturas premium e permitir cancelamento a qualquer momento.
-
-- **Benefícios Premium:**
-  - Assinantes premium podem ter um número maior de playlists e favoritos, bem como maior capacidade de armazenamento de playlists.
-  - Conteúdos premium (acessíveis apenas por assinantes) podem ser disponibilizados para atrair novos criadores e assinantes.
-
-### 7. **Regras de Negócio para Segurança e Conformidade  (Detalhado)**
-
-- **Políticas de Privacidade e Compliance:**
-
-   Todos os dados de usuários devem ser armazenados em conformidade com a GDPR ou outra legislação local aplicável.
-  
-    - Somente administradores e o próprio usuário podem acessar dados pessoais sensíveis.
-
-- **Limites de Acesso e Proteção de Dados:**
-  
-    - Taxas de requisição (rate-limiting) devem ser aplicadas para evitar uso excessivo ou ataques à API.
-    - Um sistema de autenticação robusto deve ser implementado, incluindo verificação de senha forte e autenticação multifator (2FA) para usuários premium ou criadores de conteúdo.
-  - Somente administradores e o próprio usuário podem acessar dados pessoais sensíveis.
-
-- **Limites de Acesso e Proteção de Dados:**
-  - Taxas de requisição (rate-limiting) devem ser aplicadas para evitar uso excessivo ou ataques à API.
-  - Um sistema de autenticação robusto deve ser implementado, incluindo verificação de senha forte e autenticação multifator (2FA) para usuários premium ou criadores de conteúdo.
-
-Essas regras de negócio ajudam a definir o comportamento do app, permitindo que ele seja usado de maneira organizada, segura e eficiente tanto por usuários finais quanto por administradores e criadores.
+- Converter cada regra aplicável em critérios de aceitação verificáveis.
+- Aplicar as regras nos pontos adequados: validação da API, autorização, modelo de domínio e restrições do banco de dados.
+- Testar os casos permitidos e negados, incluindo acesso anônimo, acesso por outro usuário, conteúdo privado e ações administrativas.
+- Documentar como cada regra se relaciona com os modelos, endpoints e testes.
+- Confirmar com os responsáveis pelo produto os limites numéricos e as políticas ainda abertas antes de implementá-los.
