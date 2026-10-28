@@ -7,6 +7,11 @@ hide:
 # PBE_26.2_8002 { style="display:none" }
 <div class="module-cards grid four-cols">
 
+    <!-- ISkills Card -->
+    <div class="card" markdown>
+    <a href="https://iskills.ibmec.edu.br" target="_blank"><img src="assets/iskills.png" alt="ibmec iskills" style="max-width:220px; width:auto; height:240px; border-radius:6px; align: center;" /></a>
+    </div>
+
  <!-- Module I Card -->
     <div class="card module-card" data-module-id="PBE_26.2_8002_I">
         <div class="card-header">
