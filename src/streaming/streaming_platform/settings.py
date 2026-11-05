@@ -25,7 +25,13 @@ SECRET_KEY = 'django-insecure-x1cg@+$r45gu&mw=^)sahab20%lgwhsl&hjz(+=(027_&py1@b
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = []
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+       "http://localhost:3000",  # Exemplo para um app local
+   ]
 
 
 # Application definition
@@ -39,12 +45,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'drf_spectacular',
+    'corsheaders',
+    'rest_framework.authtoken',
     'content_app',
 ]
 
 REST_FRAMEWORK = {
-   'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-}
+       'DEFAULT_AUTHENTICATION_CLASSES': [
+           'rest_framework.authentication.TokenAuthentication',
+       ],
+       'DEFAULT_PERMISSION_CLASSES': [
+           'rest_framework.permissions.IsAuthenticated',
+       ],
+       'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+   }
 
 SPECTACULAR_SETTINGS = {
    'TITLE': 'API de Streaming',
@@ -53,6 +67,7 @@ SPECTACULAR_SETTINGS = {
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
