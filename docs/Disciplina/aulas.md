@@ -13,9 +13,9 @@
 | __09__ - 01/10/26     | :material-check: Roteiro Django Rest - Intro Python OO |
 | __10__ - 08/10/26     | :material-check: Roteiro Django - Streaming - Python  BD |
 | __11__ - 15/10/26     | :material-check:  Feriado |
-| __12__ - 22/10/26     | :material-check: Roteiros Streaming - Content 1xN|
+| __12__ - 22/10/26     | :material-check: Roteiros Streaming - Admin|
 | __13__ - 29/10/26     | :material-check: Roteiros Streaming - Relacionamentos - PlayList NxN -  |
-| __14__ - 05/11/26     | :material-check: Roteiros  |
+| __14__ - 05/11/26     | :material-check: Roteiros Autenticação JWT - CorsHeaders |
 | __15__ - 12/11/26     | :material-check: AP2 |
 | __16__ - 19/11/26     | :material-check:  |
 | __17__ - 26/11/26     | :material-check: AS |
